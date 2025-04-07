@@ -1,9 +1,9 @@
 
-# **Trabalho Individual 3: Algoritmo para Caminho Hamiltoniano**  
-**Disciplina**: Fundamentos de Projeto e Análise de Algoritmos  
-**Curso**: Engenharia de Software - PUC Minas  
-**Professor**: João Paulo Carneiro Aramuni  
-**Período**: 5º | Turno: Noite  
+# 🚀 Algoritmo para Caminho Hamiltoniano**  
+**📘 Disciplina**: Fundamentos de Projeto e Análise de Algoritmos  
+**🏫 Curso**: Engenharia de Software - PUC Minas  
+**👨‍🏫 Professor**: João Paulo Carneiro Aramuni  
+**👨‍💻 Autor**: João Victor Salim R. G. Trad
 
 ---
 
