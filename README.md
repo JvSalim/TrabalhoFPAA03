@@ -14,7 +14,6 @@ Um **Caminho Hamiltoniano** é um caminho em um grafo que visita cada vértice e
 
 ## 📂 Estrutura do Repositório (100% Conforme o Enunciado)
 ```
-caminho-hamiltoniano/
 ├── main.py                 → Algoritmo de backtracking (suporte a grafos direcionados e não direcionados)
 ├── view.py                 → Visualização do grafo e caminho (opcional)
 ├── test_hamiltonian.py     → Testes unitários abrangentes
