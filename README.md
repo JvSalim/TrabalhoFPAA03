@@ -1,5 +1,5 @@
 
-# 🚀 Algoritmo para Caminho Hamiltoniano**  
+# **🚀 Algoritmo para Caminho Hamiltoniano**  
 **📘 Disciplina**: Fundamentos de Projeto e Análise de Algoritmos  
 **🏫 Curso**: Engenharia de Software - PUC Minas  
 **👨‍🏫 Professor**: João Paulo Carneiro Aramuni  
