@@ -1,4 +1,3 @@
-
 # 🔍 Algoritmo para Caminho Hamiltoniano
 
 **📚 Disciplina:** Fundamentos de Projeto e Análise de Algoritmos  
@@ -20,8 +19,7 @@ O Caminho Hamiltoniano é definido como um caminho em um grafo que visita cada v
 ├── 📄 main.py                 → Implementação do algoritmo de backtracking (para grafos direcionados e não direcionados)
 ├── 📄 view.py                 → Visualização do grafo e do caminho (utilizando NetworkX e Matplotlib)
 ├── 📄 test_hamiltonian.py     → Testes unitários abrangentes para validação do algoritmo
-├── 📁 assets/                 → Imagens geradas do grafo (PNG)
-├── 📄 requirements.txt        → Dependências necessárias (NetworkX, Matplotlib)
+├── 📄 grafo.png               → Imagens geradas do grafo (PNG)
 └── 📄 README.md               → Documentação completa e detalhada
 ```
 
@@ -293,6 +291,73 @@ test_hamiltonian.py::test_hamiltonian_path[test_input2] PASSED
 
 ---
 
+## 🧠 Classes de Complexidade do Problema
+
+### P, NP, NP-Completo e NP-Difícil
+
+O problema do Caminho Hamiltoniano se enquadra nas seguintes classes de complexidade:
+
+1. **Classe NP**: 
+   - Pertence a NP porque uma solução candidata (um caminho proposto) pode ser verificada em tempo polinomial - basta verificar se todos os vértices são visitados exatamente uma vez.
+   - Exemplo: Para um caminho de n vértices, a verificação requer O(n) operações.
+
+2. **NP-Completo**:
+   - O problema é NP-Completo porque:
+     a) Está em NP (como explicado acima)
+     b) É possível reduzir problemas NP-Completos conhecidos (como o Problema do Caixeiro Viajante) ao Caminho Hamiltoniano em tempo polinomial
+   - Essa redução prova que o Caminho Hamiltoniano é pelo menos tão difícil quanto qualquer problema em NP.
+
+3. **Relação com o Problema do Caixeiro Viajante**:
+   - O Caixeiro Viajante (TSP) é uma variação do Caminho Hamiltoniano que busca um ciclo (em vez de caminho) com peso mínimo.
+   - Ambos são NP-Completos, mas o TSP é uma versão de otimização, enquanto o Caminho Hamiltoniano é um problema de decisão.
+   - A redução entre eles mostra que resolver um implica em resolver o other.
+
+### Por que não está em P?
+- Não se conhece nenhum algoritmo polinomial para resolver o problema geral do Caminho Hamiltoniano.
+- A implementação atual usando backtracking tem complexidade fatorial O(n!), que é pior que exponencial.
+
+---
+
+## 📊 Análise de Casos de Complexidade
+
+### 1. Pior Caso (O(n!))
+- Ocorre quando o grafo contém um caminho Hamiltoniano, mas ele é a última permutação testada.
+- O algoritmo precisa explorar todas as (n-1)! permutações possíveis de vértices.
+- Exemplo: Grafo completo onde o caminho é a última ordem testada.
+
+### 2. Caso Médio (O(n!))
+- Mesmo no caso médio, o algoritmo ainda precisa explorar uma fração significativa das permutações.
+- A complexidade permanece fatorial, pois não há heurística para reduzir significativamente o espaço de busca.
+
+### 3. Melhor Caso (O(n))
+- Ocorre quando o caminho Hamiltoniano é encontrado imediatamente na primeira tentativa.
+- Exemplo: Grafo linear simples (1-2-3-...-n) quando começamos do vértice 1.
+- Mesmo assim, a complexidade assintótica é dominada pelo pior caso.
+
+### Impacto no Desempenho
+- Para n=10: ~3.6 milhões de operações
+- Para n=20: ~2.4×10¹⁸ operações (impraticável)
+- Isso ilustra por que problemas NP-Completos tornam-se intratáveis mesmo para entradas moderadas.
+
+---
+
+## 🔍 Comparação com Algoritmos Polinomiais e Exponenciais
+
+| Tipo de Algoritmo | Exemplo            | Complexidade | Caminho Hamiltoniano |
+|-------------------|--------------------|--------------|-----------------------|
+| Polinomial        | Busca em Largura   | O(n + m)     | ✗ Não aplicável       |
+| Exponencial       | Soma de Subconjuntos | O(2ⁿ)        | ✓ Similar (mas O(n!)) |
+| Fatorial          | Caminho Hamiltoniano | O(n!))        | ✓ Caso deste projeto  |
+
+- O algoritmo implementado tem comportamento pior que exponencial (fatorial), tornando-o impraticável para grafos com mais de 20 vértices.
+- Essa complexidade é típica de problemas NP-Completos quando resolvidos por força bruta.
+
+---
+
 ## 📚 Referências
-AULA 02: Introdução à Teoria da Complexidade (Material do Professor).
+
+1. Material da AULA 02: Introdução à Teoria da Complexidade
+
+---
+
 
