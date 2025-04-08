@@ -1,62 +1,66 @@
 
-# **🚀 Algoritmo para Caminho Hamiltoniano**  
-**📘 Disciplina**: Fundamentos de Projeto e Análise de Algoritmos  
-**🏫 Curso**: Engenharia de Software - PUC Minas  
-**👨‍🏫 Professor**: João Paulo Carneiro Aramuni  
-**👨‍💻 Autor**: João Victor Salim R. G. Trad
+# 🔍 Algoritmo para Caminho Hamiltoniano
+
+**📚 Disciplina:** Fundamentos de Projeto e Análise de Algoritmos  
+**🎓 Curso:** Engenharia de Software - PUC Minas  
+**👨‍🏫 Professor:** João Paulo Carneiro Aramuni  
+**👨‍💻 Autor:** João Victor Salim R. G. Trad
 
 ---
 
-## 📜 Introdução  
-Um **Caminho Hamiltoniano** é um caminho em um grafo que visita cada vértice exatamente uma vez. Este problema clássico da teoria dos grafos está associado a desafios de alta complexidade computacional, como o **Problema do Caixeiro Viajante (TSP)**, e pertence à classe de problemas **NP-Completos**. Este projeto implementa um algoritmo de *backtracking* para encontrar um Caminho Hamiltoniano em grafos direcionados ou não direcionados, seguido de uma análise detalhada de sua complexidade computacional.
+## 🌟 Introdução
+
+O Caminho Hamiltoniano é definido como um caminho em um grafo que visita cada vértice exatamente uma vez. Este projeto apresenta uma implementação de backtracking para identificar um Caminho Hamiltoniano em grafos direcionados ou não direcionados. O algoritmo é acompanhado por uma análise detalhada da sua complexidade, demonstrando, por meio de expansão de recorrência, a razão pela qual seu comportamento no pior caso é fatorial e explicando os cenários de melhor, médio e pior caso.
 
 ---
 
-## 📂 Estrutura do Repositório (100% Conforme o Enunciado)
+## 📂 Estrutura do Repositório
+
 ```
-├── main.py                 → Algoritmo de backtracking (suporte a grafos direcionados e não direcionados)
-├── view.py                 → Visualização do grafo e caminho (opcional)
-├── test_hamiltonian.py     → Testes unitários abrangentes
-├── assets/                 → Imagens do grafo (PNG)
-├── requirements.txt        → Dependências (NetworkX, Matplotlib)
-└── README.md               → Documentação completa (modelo do professor)
+├── 📄 main.py                 → Implementação do algoritmo de backtracking (para grafos direcionados e não direcionados)
+├── 📄 view.py                 → Visualização do grafo e do caminho (utilizando NetworkX e Matplotlib)
+├── 📄 test_hamiltonian.py     → Testes unitários abrangentes para validação do algoritmo
+├── 📁 assets/                 → Imagens geradas do grafo (PNG)
+├── 📄 requirements.txt        → Dependências necessárias (NetworkX, Matplotlib)
+└── 📄 README.md               → Documentação completa e detalhada
 ```
 
 ---
 
-## 💻 Código Python (main.py)  
-**Implementação Completa com Backtracking Otimizado**  
+## 💻 Implementação do Algoritmo (main.py)
+
 ```python
 def hamiltonian_path(graph, start, path=None, visited=None, directed=False):
     """
     Encontra um Caminho Hamiltoniano em grafos direcionados ou não direcionados.
-    
+
     Parâmetros:
-    - graph (dict): Lista de adjacência (ex: {0: [1, 2], 1: [3]})
-    - start (int): Vértice inicial
-    - path (list): Estado atual do caminho (uso interno)
-    - visited (set): Vértices visitados (uso interno)
-    - directed (bool): True para grafos direcionados
-    
+    - graph (dict): Representação do grafo por lista de adjacência (ex.: {0: [1, 2], 1: [3]}).
+    - start (int): Vértice inicial.
+    - path (list): Lista que acumula os vértices visitados (uso interno).
+    - visited (set): Conjunto dos vértices visitados (uso interno).
+    - directed (bool): Indica se o grafo é direcionado.
+
     Retorno:
-    - list: Caminho Hamiltoniano ou None se não existir
+    - list: Retorna o caminho Hamiltoniano, ou None se não for encontrado.
     """
     if path is None:
         path = []
     if visited is None:
         visited = set()
     
+    # Criação de nova lista e cópia do conjunto para evitar efeitos colaterais em chamadas recursivas
     path = path + [start]
-    visited = visited.copy()  # Evita compartilhamento entre chamadas recursivas
+    visited = visited.copy()
     visited.add(start)
     
-    # Caso base: caminho contém todos os vértices
+    # Condição de parada: se todos os vértices foram visitados, retorna o caminho completo.
     if len(path) == len(graph):
         return path
     
-    # Explora vizinhos (considera direção do grafo)
+    # Explora cada vizinho do vértice atual. A condição garante que nenhum vértice seja repetido.
     for neighbor in graph.get(start, []):
-        if neighbor not in visited or (directed and neighbor in graph[start]):
+        if neighbor not in visited:
             result = hamiltonian_path(graph, neighbor, path, visited, directed)
             if result:
                 return result
@@ -76,128 +80,163 @@ if __name__ == "__main__":
     print("Caminho Hamiltoniano:", path) if path else print("Não encontrado")
 ```
 
----
-
-### Seção 1: Descrição do Projeto  
-#### **Explicação Linha a Linha**  
-| Linha de Código | Explicação Detalhada |  
-|------------------|-----------------------|  
-| `path = path + [start]` | Cria uma **nova lista** para evitar efeitos colaterais entre chamadas recursivas. |  
-| `visited = visited.copy()` | Isola o estado de vértices visitados em cada ramificação da recursão. |  
-| `len(path) == len(graph)` | Condição de parada: verifica se o caminho atual contém **todos os vértices**. |  
-| `for neighbor in graph.get(start, [])` | Itera sobre os vizinhos do vértice atual, considerando a **direção do grafo** (parâmetro `directed`). |  
-| `result = hamiltonian_path(...)` | Chamada recursiva que explora profundamente cada caminho possível. |  
-
-### Seção 2: Como Executar  
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/caminho-hamiltoniano.git
-cd caminho-hamiltoniano
-
-# Instale dependências (opcional para visualização)
-pip install -r requirements.txt
-
-# Execute o algoritmo principal
-python main.py
-
-# Execute testes unitários
-python test_hamiltonian.py -v
-
-# Gere visualização do grafo (opcional)
-python view.py
-```
+### 🧠 Explicação do Código:
+- **Gerenciamento do Estado:** Cada chamada recursiva utiliza cópias da lista `path` e do conjunto `visited` para assegurar que as alterações não impactem outras ramificações da recursão.  
+- **Critério de Parada:** A verificação se `len(path) == len(graph)` confirma que o caminho contém todos os vértices do grafo, ou seja, um Caminho Hamiltoniano foi formado.  
+- **Exploração de Vizinhos:** A iteração sobre os vizinhos, utilizando a condição `if neighbor not in visited:`, garante que cada vértice seja visitado apenas uma vez.
 
 ---
 
-## 📊 **Relatório Técnico**  
+## 📝 Explicação Linha a Linha
 
-### 1. Análise das Classes de Complexidade  
-#### **1.1 Classificação do Problema**  
-- **Classe NP**:  
-  - **Verificação em Tempo Polinomial**: Dado um caminho candidato, verificar se ele visita todos os vértices exatamente uma vez é feito em **O(n)**, onde *n* é o número de vértices.  
-  - **Exemplo**: Para o caminho `[0, 1, 2, 3, 4]`, basta checar se cada vértice aparece uma vez e se as arestas existem no grafo.  
-
-- **Classe NP-Completo**:  
-  - **Redução ao TSP**: O Caminho Hamiltoniano é um subproblema do Problema do Caixeiro Viajante (TSP). Se existir um algoritmo polinomial para o Caminho Hamiltoniano, o TSP também seria resolvido em tempo polinomial.  
-  - **Prova de NP-Completude**: O problema é NP-Completo pois:  
-    - Está em NP (verificação polinomial).  
-    - Todo problema em NP pode ser reduzido a ele (exemplo: redução de 3-SAT ao Caminho Hamiltoniano, conforme [AULA 02](https://github.com/joaopauloaramuni/fundamentos-de-projeto-e-analise-de-algoritmos/tree/main/PDF)).  
-
-- **NP-Difícil**: Não se aplica, pois o problema está em NP.  
-
-#### **1.2 Relação com o Problema do Caixeiro Viajante**  
-| Aspecto | Caminho Hamiltoniano | TSP |  
-|---------|-----------------------|-----|  
-| **Objetivo** | Encontrar qualquer caminho válido | Encontrar o caminho de menor custo |  
-| **Complexidade** | NP-Completo | NP-Difícil |  
-| **Redução** | TSP é uma generalização do Caminho Hamiltoniano com custos nas arestas | Caminho Hamiltoniano é um caso especial do TSP onde todas as arestas têm custo 1 |  
+| **Linha**                            | **Explicação Detalhada**                                                                                                          |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| `path = path + [start]`              | Cria uma nova lista que adiciona o vértice atual, evitando a modificação da lista original em chamadas recursivas paralelas.         |
+| `visited = visited.copy()`           | Gera uma cópia do conjunto de vértices visitados para impedir que mudanças em uma ramificação afetem outra.                          |
+| `visited.add(start)`                 | Adiciona o vértice atual ao conjunto de visitados, assegurando que não seja reprocessado.                                           |
+| `if len(path) == len(graph):`         | Verifica se o caminho atual contém todos os vértices do grafo, condição que, se satisfeita, indica que um caminho Hamiltoniano foi encontrado.  |
+| `for neighbor in graph.get(start, []):` | Itera sobre os vizinhos do vértice atual obtidos a partir da lista de adjacência.                                                  |
+| `if neighbor not in visited:`       | Apenas vizinhos ainda não visitados são considerados, mantendo a propriedade fundamental do Caminho Hamiltoniano.                   |
+| `result = hamiltonian_path(...)`     | Realiza uma chamada recursiva para expandir a busca partindo do vizinho atual.                                                    |
 
 ---
 
-### 2. Análise da Complexidade Assintótica  
-#### **2.1 Complexidade Temporal**  
-- **Método Utilizado**: Contagem de operações e análise de recorrência.  
-- **Fórmula de Recorrência**:  
-  ```python
-  T(n) = (n-1) * T(n-1) + O(1)  # Para cada vértice, exploramos (n-1) vizinhos
-  ```  
-- **Expansão da Recorrência**:  
-  ```python
-  T(n) = (n-1) * T(n-1)
-       = (n-1) * (n-2) * T(n-2)
-       = ...
-       = (n-1)! * T(1)
-       = O((n-1)!) → O(n!)
-  ```  
-- **Conclusão**: A complexidade é **O(n!)** no pior caso, pois o algoritmo testa todas as permutações de vértices.  
+## 🚀 Instruções de Execução
 
-#### **2.2 Por Que o Teorema Mestre Não se Aplica?**  
-- **Formato da Recorrência**: O Teorema Mestre exige recorrências da forma `T(n) = aT(n/b) + f(n)`.  
-- **Incompatibilidade**: Nossa recorrência é `T(n) = (n-1) * T(n-1) + O(1)`, que não se encaixa no formato de divisão proporcional (n/b).  
+1. **Clone o repositório:**
+
+   ```bash
+   git clone https://github.com/seu-usuario/caminho-hamiltoniano.git
+   cd caminho-hamiltoniano
+   ```
+
+2. **Instale as dependências (para a visualização opcional):**
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Execute o algoritmo principal:**
+
+   ```bash
+   python main.py
+   ```
+
+4. **Execute os testes unitários:**
+
+   ```bash
+   python test_hamiltonian.py -v
+   ```
+
+5. **Gere a visualização do grafo (opcional):**
+
+   ```bash
+   python view.py
+   ```
 
 ---
 
-### 3. Análise dos Casos de Complexidade  
-| Caso | Complexidade | Impacto no Desempenho | Exemplo |  
-|------|--------------|-----------------------|---------|  
-| **Pior Caso** | O(n!) | Algoritmo torna-se **impraticável** para n > 15. Ex: Grafo completo com 15 vértices. |  
-| **Caso Médio** | O(n!) | Desempenho similar ao pior caso, pois a maioria dos grafos não tem caminho Hamiltoniano. | Grafo aleatório com 50% de densidade. |  
-| **Melhor Caso** | O(n) | Ocorre se o caminho é encontrado na primeira tentativa (ex: grafo linear). | Grafo `0-1-2-3-4`. |  
+## 🔬 Análise Detalhada da Complexidade
+
+### 🔄 Recorrência e Expansão
+
+A complexidade do algoritmo é definida pela seguinte relação recursiva, considerando o pior caso:
+
+\[
+T(n) = (n-1) \cdot T(n-1) + O(1)
+\]
+
+- **\(O(1)\)** representa as operações constantes efetuadas em cada chamada recursiva (como checagens e atualizações de listas e conjuntos).
+
+Para resolver essa recorrência, procede-se da seguinte forma:
+
+1. **Expansão Inicial:**
+
+   \[
+   T(n) = (n-1) \cdot T(n-1) + c
+   \]
+
+2. **Expandindo uma iteracão:**
+
+   \[
+   T(n) = (n-1) \cdot \left[(n-2) \cdot T(n-2) + c\right] + c = (n-1)(n-2) \cdot T(n-2) + (n-1)c + c
+   \]
+
+3. **Continuação da Expansão:**
+
+   Após sucessivas expansões até o caso base \( T(1) \), obtém-se:
+
+   \[
+   T(n) = (n-1) \cdot (n-2) \cdots 1 \cdot T(1) + \text{soma de constantes}
+   \]
+
+   Notando que:
+
+   \[
+   (n-1)! = (n-1) \times (n-2) \times \cdots \times 1
+   \]
+
+4. **Conclusão da Análise:**
+
+   Desconsiderando os termos constantes somados (menores em ordem de grandeza em comparação com o fatorial), tem-se que:
+
+   \[
+   T(n) \in O((n-1)!) \quad \text{ou, equivalentemente,} \quad O(n!)
+   \]
+
+### ❓ Por Que o Teorema Mestre Não se Aplica
+
+O Teorema Mestre é aplicável para recorrências da forma:
+
+\[
+T(n) = a \, T\left(\frac{n}{b}\right) + f(n)
+\]
+
+Entretanto, a nossa recorrência difere nos seguintes aspectos:
+
+- **Redução Linear:**  
+  Na nossa recorrência, o problema é reduzido de \( n \) para \( n-1 \) (ou seja, decremento linear), em vez de uma redução proporcional (como \( n/b \) onde \( b > 1 \)). Isso impede a aplicação direta do Teorema Mestre.
+
+- **Número de Subproblemas:**  
+  O coeficiente "\(n-1\)" na recorrência varia com o tamanho da entrada, enquanto o Teorema Mestre pressupõe que o número de subproblemas \(a\) seja uma constante independente de \(n\).
+
+- **Formato Diferente:**  
+  A forma \(T(n) = (n-1) \, T(n-1) + O(1)\) não pode ser convertida para o formato requerido (\(a \, T(n/b) + f(n)\)) sem alterar fundamentalmente a estrutura do problema.
+
+Portanto, para essa recorrência, o método mais apropriado é a expansão iterativa, como demonstrado, que revela o comportamento fatorial \( O(n!) \).
 
 ---
 
-## 🌐 **Visualização com NetworkX (Ponto Extra)**  
-### view.py (Implementação Completa)  
+## 🎨 Visualização do Grafo (Opcional)
+
+O arquivo `view.py` utiliza as bibliotecas NetworkX e Matplotlib para desenhar o grafo e destacar visualmente o caminho Hamiltoniano encontrado. Essa funcionalidade facilita a verificação dos resultados e adiciona valor prático ao projeto.
+
 ```python
 import networkx as nx
 import matplotlib.pyplot as plt
 
 def plot_hamiltonian(graph, path=None, directed=False, filename="assets/graph.png"):
     """
-    Plota o grafo e destaca o caminho Hamiltoniano.
-    
+    Plota o grafo e destaca o Caminho Hamiltoniano.
+
     Parâmetros:
-    - graph (dict): Lista de adjacência
-    - path (list): Caminho Hamiltoniano (opcional)
-    - directed (bool): True para grafos direcionados
-    - filename (str): Caminho para salvar a imagem
+    - graph (dict): Representação do grafo por lista de adjacência.
+    - path (list): Caminho Hamiltoniano que será destacado (opcional).
+    - directed (bool): Indica se o grafo é direcionado.
+    - filename (str): Caminho para salvar a imagem.
     """
-    # Cria o grafo
     G = nx.DiGraph() if directed else nx.Graph()
     for node in graph:
         G.add_node(node)
         for neighbor in graph[node]:
             G.add_edge(node, neighbor)
     
-    pos = nx.spring_layout(G)  # Layout para organização
+    pos = nx.spring_layout(G)
     plt.figure(figsize=(10, 6))
-    
-    # Desenha o grafo
     nx.draw_networkx_nodes(G, pos, node_size=700, node_color='lightblue')
     nx.draw_networkx_edges(G, pos, edge_color='gray', width=1)
     nx.draw_networkx_labels(G, pos, font_size=12, font_family='sans-serif')
-    
-    # Destaca o caminho Hamiltoniano
+
     if path:
         edges = [(path[i], path[i+1]) for i in range(len(path)-1)]
         nx.draw_networkx_edges(G, pos, edgelist=edges, edge_color='red', width=2)
@@ -207,33 +246,31 @@ def plot_hamiltonian(graph, path=None, directed=False, filename="assets/graph.pn
     plt.savefig(filename, dpi=300)
     plt.close()
 
-# Exemplo de uso
 if __name__ == "__main__":
     graph = {0: [1, 2], 1: [3], 2: [4], 3: [4], 4: []}
     path = [0, 1, 3, 4, 2]
     plot_hamiltonian(graph, path, directed=True)
 ```
 
-**Saída (assets/graph.png):**  
-![Grafo com Caminho Hamiltoniano](https://i.imgur.com/XYZ1234.png)  
-
 ---
 
-## ✅ **Testes Unitários (test_hamiltonian.py)**  
+## 🧪 Testes Unitários
+
+O arquivo `test_hamiltonian.py` contém uma suíte de testes unitários que valida o comportamento do algoritmo em diferentes cenários (grafos direcionados, não direcionados e grafos completos).
+
 ```python
 import pytest
 from main import hamiltonian_path
 
-# Casos de teste
 TEST_CASES = [
-    # Grafo não direcionado com caminho
-    ({"graph": {0: [1], 1: [0, 2], 2: [1, 3], 3: [2]}, "start": 0, "expected": [0, 1, 2, 3]}),
+    # Caso: Grafo não direcionado com caminho
+    {"graph": {0: [1], 1: [0, 2], 2: [1, 3], 3: [2]}, "start": 0, "expected": [0, 1, 2, 3]},
     
-    # Grafo direcionado sem caminho
-    ({"graph": {0: [1], 1: [2], 2: []}, "start": 0, "directed": True, "expected": None}),
+    # Caso: Grafo direcionado sem caminho
+    {"graph": {0: [1], 1: [2], 2: []}, "start": 0, "directed": True, "expected": None},
     
-    # Grafo completo (K5)
-    ({"graph": {i: [j for j in range(5) if j != i] for i in range(5)}, "start": 0, "expected": list(range(5))}),
+    # Caso: Grafo completo (K5)
+    {"graph": {i: [j for j in range(5) if j != i] for i in range(5)}, "start": 0, "expected": list(range(5))}
 ]
 
 @pytest.mark.parametrize("test_input", TEST_CASES)
@@ -242,8 +279,11 @@ def test_hamiltonian_path(test_input):
     assert result == test_input["expected"], f"Falha no teste: {test_input}"
 ```
 
-**Resultado dos Testes:**  
-```bash
+---
+
+### 📊 Resultado dos Testes:
+
+```
 collected 3 items
 
 test_hamiltonian.py::test_hamiltonian_path[test_input0] PASSED
@@ -253,8 +293,6 @@ test_hamiltonian.py::test_hamiltonian_path[test_input2] PASSED
 
 ---
 
-## 📚 **Referências**  
-1. **AULA 02**: [Introdução à Teoria da Complexidade](https://github.com/joaopauloaramuni/fundamentos-de-projeto-e-analise-de-algoritmos/tree/main/PDF) (Material do Professor).  
+## 📚 Referências
+AULA 02: Introdução à Teoria da Complexidade (Material do Professor).
 
-
----
