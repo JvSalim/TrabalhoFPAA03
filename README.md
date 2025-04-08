@@ -140,9 +140,7 @@ if __name__ == "__main__":
 
 A complexidade do algoritmo é definida pela seguinte relação recursiva, considerando o pior caso:
 
-\[
-T(n) = (n-1) \cdot T(n-1) + O(1)
-\]
+T(n) = (n-1) * T(n-1) + O(1)
 
 - **\(O(1)\)** representa as operações constantes efetuadas em cada chamada recursiva (como checagens e atualizações de listas e conjuntos).
 
@@ -150,45 +148,34 @@ Para resolver essa recorrência, procede-se da seguinte forma:
 
 1. **Expansão Inicial:**
 
-   \[
-   T(n) = (n-1) \cdot T(n-1) + c
-   \]
+T(n) = (n-1) * T(n-1) + c
 
 2. **Expandindo uma iteracão:**
 
-   \[
-   T(n) = (n-1) \cdot \left[(n-2) \cdot T(n-2) + c\right] + c = (n-1)(n-2) \cdot T(n-2) + (n-1)c + c
-   \]
+T(n) = (n-1) * [(n-2) * T(n-2) + c] + c
+= (n-1)(n-2) * T(n-2) + (n-1)c + c
 
 3. **Continuação da Expansão:**
 
    Após sucessivas expansões até o caso base \( T(1) \), obtém-se:
+T(n) = (n-1) * (n-2) * ... * 1 * T(1) + soma de constantes
 
-   \[
-   T(n) = (n-1) \cdot (n-2) \cdots 1 \cdot T(1) + \text{soma de constantes}
-   \]
-
-   Notando que:
-
-   \[
-   (n-1)! = (n-1) \times (n-2) \times \cdots \times 1
-   \]
+Sabemos que:
+(n-1)! = (n-1) * (n-2) * ... * 1
 
 4. **Conclusão da Análise:**
 
-   Desconsiderando os termos constantes somados (menores em ordem de grandeza em comparação com o fatorial), tem-se que:
-
-   \[
-   T(n) \in O((n-1)!) \quad \text{ou, equivalentemente,} \quad O(n!)
-   \]
+   Ignorando os termos constantes (que são menores em comparação ao fatorial), temos:
+T(n) pertence a O((n-1)!) ou, de forma equivalente, O(n!).
 
 ### ❓ Por Que o Teorema Mestre Não se Aplica
 
 O Teorema Mestre é aplicável para recorrências da forma:
 
-\[
-T(n) = a \, T\left(\frac{n}{b}\right) + f(n)
-\]
+T(n) = a * T(n/b) + f(n)
+
+Mas a nossa recorrência original é:
+T(n) = (n-1) * T(n-1) + O(1)
 
 Entretanto, a nossa recorrência difere nos seguintes aspectos:
 
