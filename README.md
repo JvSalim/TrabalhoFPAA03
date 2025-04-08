@@ -310,7 +310,7 @@ O problema do Caminho Hamiltoniano se enquadra nas seguintes classes de complexi
 3. **Relação com o Problema do Caixeiro Viajante**:
    - O Caixeiro Viajante (TSP) é uma variação do Caminho Hamiltoniano que busca um ciclo (em vez de caminho) com peso mínimo.
    - Ambos são NP-Completos, mas o TSP é uma versão de otimização, enquanto o Caminho Hamiltoniano é um problema de decisão.
-   - A redução entre eles mostra que resolver um implica em resolver o other.
+   - A redução entre eles mostra que resolver um implica em resolver o outro.
 
 ### Por que não está em P?
 - Não se conhece nenhum algoritmo polinomial para resolver o problema geral do Caminho Hamiltoniano.
