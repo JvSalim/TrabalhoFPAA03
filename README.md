@@ -104,8 +104,8 @@ if __name__ == "__main__":
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/caminho-hamiltoniano.git
-   cd caminho-hamiltoniano
+   git clone https://github.com/JvSalim/TrabalhoFPAA03.git
+   cd TrabalhoFPAA03
    ```
 
 2. **Instale as dependências (para a visualização opcional):**
